@@ -2,18 +2,18 @@ package booksphere.model;
 
 public class Recommendations {
     private int recommendationID;
-    private int userID;
-    private long bookID;
-    private int publisherID;
+    protected User user;
+    protected Books book;
+    protected Publisher publisher;
     private boolean recommend;
     
     public Recommendations() {
     }
     
-    public Recommendations(int userID, long bookID, int publisherID, boolean recommend) {
-        this.userID = userID;
-        this.bookID = bookID;
-        this.publisherID = publisherID;
+    public Recommendations(User user, Books book, Publisher publisher, boolean recommend) {
+        this.user = user;
+        this.book = book;
+        this.publisher = publisher;
         this.recommend = recommend;
     }
     
@@ -25,28 +25,28 @@ public class Recommendations {
         this.recommendationID = recommendationID;
     }
     
-    public int getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
     
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
     
-    public long getBookID() {
-        return bookID;
+    public Books getBook() {
+        return book;
     }
     
-    public void setBookID(long bookID) {
-        this.bookID = bookID;
+    public void setBookID(Books book) {
+        this.book = book;
     }
     
-    public int getPublisherID() {
-        return publisherID;
+    public Publisher getPublisher() {
+        return publisher;
     }
     
-    public void setPublisherID(int publisherID) {
-        this.publisherID = publisherID;
+    public void setPublisherID(Publisher publisher) {
+        this.publisher = publisher;
     }
     
     public boolean isRecommend() {
@@ -57,14 +57,4 @@ public class Recommendations {
         this.recommend = recommend;
     }
     
-    @Override
-    public String toString() {
-        return "Recommendation{" +
-                "recommendationID=" + recommendationID +
-                ", userID=" + userID +
-                ", bookID=" + bookID +
-                ", publisherID=" + publisherID +
-                ", recommend=" + recommend +
-                '}';
-    }
 }

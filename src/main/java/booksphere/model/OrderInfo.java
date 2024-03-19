@@ -2,16 +2,16 @@ package booksphere.model;
 
 public class OrderInfo {
     private int orderID;
-    private int userID;
-    private long bookID;
+    protected User user;
+    protected Books book;
     private OrderStatus status;
     
     public OrderInfo() {
     }
     
-    public OrderInfo(int userID, long bookID, OrderStatus status) {
-        this.userID = userID;
-        this.bookID = bookID;
+    public OrderInfo(User user, Books book, OrderStatus status) {
+        this.user = user;
+        this.book = book;
         this.status = status;
     }
     
@@ -23,20 +23,20 @@ public class OrderInfo {
         this.orderID = orderID;
     }
     
-    public int getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
     
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
     
-    public long getBookID() {
-        return bookID;
+    public Books getBook() {
+        return book;
     }
     
-    public void setBookID(long bookID) {
-        this.bookID = bookID;
+    public void setBook(Books book) {
+        this.book = book;
     }
     
     public OrderStatus getStatus() {
@@ -47,15 +47,6 @@ public class OrderInfo {
         this.status = status;
     }
     
-    @Override
-    public String toString() {
-        return "OrderInfo{" +
-                "orderID=" + orderID +
-                ", userID=" + userID +
-                ", bookID=" + bookID +
-                ", status=" + status +
-                '}';
-    }
 }
 
 enum OrderStatus {

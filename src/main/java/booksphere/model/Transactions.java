@@ -4,21 +4,21 @@ import java.sql.Timestamp;
 
 public class Transactions {
     private int transactionID;
-    private long cardNumber;
-    private int bookID;
+    protected CreditCards creditCard;
+    protected Books book;
     private Timestamp transactionDate;
-    private int userID;
-    private int orderID;
+    protected User user;
+    protected OrderInfo orderInfo;
     
     public Transactions() {
     }
     
-    public Transactions(long cardNumber, int bookID, Timestamp transactionDate, int userID, int orderID) {
+    public Transactions(CreditCards creditCard, Books book, Timestamp transactionDate, User user, OrderInfo orderInfo) {
         this.cardNumber = cardNumber;
-        this.bookID = bookID;
+        this.book = book;
         this.transactionDate = transactionDate;
-        this.userID = userID;
-        this.orderID = orderID;
+        this.user = user;
+        this.orderInfo = orderInfo;
     }
     
     public int getTransactionID() {
@@ -29,20 +29,20 @@ public class Transactions {
         this.transactionID = transactionID;
     }
     
-    public long getCardNumber() {
-        return cardNumber;
+    public CreditCards getCardNumber() {
+        return creditCard;
     }
     
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCardNumber(CreditCards creditCard) {
+        this.creditCard = creditCatd;
     }
     
-    public int getBookID() {
-        return bookID;
+    public Books getBook() {
+        return book;
     }
     
-    public void setBookID(int bookID) {
-        this.bookID = bookID;
+    public void setBook(Books book) {
+        this.book = book;
     }
     
     public Timestamp getTransactionDate() {
@@ -53,31 +53,20 @@ public class Transactions {
         this.transactionDate = transactionDate;
     }
     
-    public int getUserID() {
-        return userID;
+    public int getUser() {
+        return user;
     }
     
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
     
-    public int getOrderID() {
-        return orderID;
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
     }
     
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
     
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "transactionID=" + transactionID +
-                ", cardNumber=" + cardNumber +
-                ", bookID=" + bookID +
-                ", transactionDate=" + transactionDate +
-                ", userID=" + userID +
-                ", orderID=" + orderID +
-                '}';
-    }
 }
