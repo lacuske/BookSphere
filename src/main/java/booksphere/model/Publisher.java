@@ -5,6 +5,12 @@ public class Publisher {
     private String publisherName;
     private String biography;
     
+    public Publisher() {
+    }
+    
+    public Publisher(String publisherName) {
+        this.publisherName = publisherName;
+    }
     
     public Publisher(String publisherName, String biography) {
         this.publisherName = publisherName;
