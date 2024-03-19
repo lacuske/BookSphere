@@ -23,6 +23,16 @@ public class Users {
 		this.userID = userID;
 	}
 
+	
+	public Users(String location, int age, String firstName, String lastName, String password) {
+		super();
+		this.location = location;
+		this.age = age;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+	}
+
 	/** Getters and setters. */
 	public int getUserID() {
 		return userID;

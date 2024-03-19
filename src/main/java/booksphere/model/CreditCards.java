@@ -9,7 +9,6 @@ public class CreditCards {
 	protected Address address;
 	
 	public CreditCards(long cardNumber, Date expirationDate, Users user, Address address) {
-		super();
 		this.cardNumber = cardNumber;
 		this.expirationDate = expirationDate;
 		this.user = user;
@@ -17,7 +16,6 @@ public class CreditCards {
 	}
 
 	public CreditCards(long cardNumber) {
-		super();
 		this.cardNumber = cardNumber;
 	}
 

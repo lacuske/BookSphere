@@ -14,7 +14,6 @@ public class Address {
 	
 	public Address(int addressID, String street1, String street2, String city, String state, String zip,
 			boolean billingAddress, boolean mailingAddress, Users user) {
-		super();
 		this.addressID = addressID;
 		this.street1 = street1;
 		this.street2 = street2;
@@ -27,8 +26,21 @@ public class Address {
 	}
 
 	public Address(int addressID) {
-		super();
 		this.addressID = addressID;
+	}
+	
+	
+
+	public Address(String street1, String street2, String city, String state, String zip, boolean billingAddress,
+			boolean mailingAddress, Users user) {
+		this.street1 = street1;
+		this.street2 = street2;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.billingAddress = billingAddress;
+		this.mailingAddress = mailingAddress;
+		this.user = user;
 	}
 
 	/** Getters and setters. */
@@ -103,5 +115,13 @@ public class Address {
 	public void setUser(Users user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Address [addressID=" + addressID + ", street1=" + street1 + ", street2=" + street2 + ", city=" + city
+				+ ", state=" + state + ", zip=" + zip + ", billingAddress=" + billingAddress + ", mailingAddress="
+				+ mailingAddress + ", user=" + user + "]";
+	}
+	
 	
 }
