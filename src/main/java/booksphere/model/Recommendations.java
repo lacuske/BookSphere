@@ -2,7 +2,7 @@ package booksphere.model;
 
 public class Recommendations {
     private int recommendationID;
-    protected User user;
+    protected Users user;
     protected Books book;
     protected Publisher publisher;
     private boolean recommend;
@@ -10,7 +10,7 @@ public class Recommendations {
     public Recommendations() {
     }
     
-    public Recommendations(User user, Books book, Publisher publisher, boolean recommend) {
+    public Recommendations(Users user, Books book, Publisher publisher, boolean recommend) {
         this.user = user;
         this.book = book;
         this.publisher = publisher;
@@ -25,11 +25,11 @@ public class Recommendations {
         this.recommendationID = recommendationID;
     }
     
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
     
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
     
