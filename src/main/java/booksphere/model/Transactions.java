@@ -2,7 +2,7 @@ package booksphere.model;
 
 import java.sql.Timestamp;
 
-public class Transaction {
+public class Transactions {
     private int transactionID;
     private long cardNumber;
     private int bookID;
@@ -10,10 +10,10 @@ public class Transaction {
     private int userID;
     private int orderID;
     
-    public Transaction() {
+    public Transactions() {
     }
     
-    public Transaction(long cardNumber, int bookID, Timestamp transactionDate, int userID, int orderID) {
+    public Transactions(long cardNumber, int bookID, Timestamp transactionDate, int userID, int orderID) {
         this.cardNumber = cardNumber;
         this.bookID = bookID;
         this.transactionDate = transactionDate;

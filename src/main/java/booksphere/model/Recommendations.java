@@ -1,16 +1,16 @@
 package booksphere.model;
 
-public class Recommendation {
+public class Recommendations {
     private int recommendationID;
     private int userID;
     private long bookID;
     private int publisherID;
     private boolean recommend;
     
-    public Recommendation() {
+    public Recommendations() {
     }
     
-    public Recommendation(int userID, long bookID, int publisherID, boolean recommend) {
+    public Recommendations(int userID, long bookID, int publisherID, boolean recommend) {
         this.userID = userID;
         this.bookID = bookID;
         this.publisherID = publisherID;

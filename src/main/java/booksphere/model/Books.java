@@ -1,6 +1,6 @@
 package booksphere.model;
 
-public class Book {
+public class Books {
     private long bookID;
     private String isbn;
     private String title;
@@ -9,10 +9,10 @@ public class Book {
     private int publisherID;
     private BookType bookType;
     
-    public Book() {
+    public Books() {
     }
     
-    public Book(String isbn, String title, int authorID, int bookYear, int publisherID, BookType bookType) {
+    public Books(String isbn, String title, int authorID, int bookYear, int publisherID, BookType bookType) {
         this.isbn = isbn;
         this.title = title;
         this.authorID = authorID;
