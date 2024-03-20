@@ -9,6 +9,10 @@ public class OrderInfo {
     public OrderInfo() {
     }
     
+    public OrderInfo(int orderID) {
+    	this.orderID = orderID;
+    }
+    
     public OrderInfo(Users user, Books book, OrderStatus status) {
         this.user = user;
         this.book = book;

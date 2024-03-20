@@ -195,4 +195,32 @@ public class RatingDao {
 			}
 		}
 	}
+	
+	public Rating update(Rating rating) throws SQLException {
+        String updateRating = "UPDATE Rating SET Rating=?, UserID=?, ISBN=? WHERE RatingID=?;";
+        Connection connection = null;
+        PreparedStatement updateStmt = null;
+
+        try {
+            connection = connectionManager.getConnection();
+            updateStmt = connection.prepareStatement(updateRating);
+            updateStmt.setInt(1, rating.getRating());
+            updateStmt.setInt(2, rating.getUser().getUserID());
+            updateStmt.setString(3, rating.getBook().getIsbn());
+            updateStmt.setInt(4, rating.getRatingID());
+
+            updateStmt.executeUpdate();
+            return rating;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (updateStmt != null) {
+                updateStmt.close();
+            }
+        }
+    }
 }

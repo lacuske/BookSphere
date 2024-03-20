@@ -215,5 +215,59 @@ public class TransactionsDao {
         }
         return transactions;
     }
+    
+    public Transactions getTransactionByID(int transactionID) throws SQLException {
+        String selectTransaction =
+            "SELECT TransactionID, CreditCardID, BookID, TransactionDate, UserID, OrderID " +
+            "FROM Transactions " +
+            "WHERE TransactionID = ?;";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectTransaction);
+            selectStmt.setInt(1, transactionID);
+
+            results = selectStmt.executeQuery();
+            
+            CreditCardsDao creditCardsDao = CreditCardsDao.getInstance();
+            BooksDao booksDao = BooksDao.getInstance();
+            UsersDao usersDao = UsersDao.getInstance();
+            OrderInfoDao orderInfoDao = OrderInfoDao.getInstance();
+
+            if (results.next()) {
+                int resultTransactionID = results.getInt("TransactionID");
+                long cardNumber = results.getLong("CreditCardID");
+                long bookID = results.getLong("BookID");
+                Timestamp transactionDate = results.getTimestamp("TransactionDate");
+                int userID = results.getInt("UserID");
+                int orderID = results.getInt("OrderID");
+
+                CreditCards creditCard = creditCardsDao.getCreditCardByCardNumber(cardNumber);
+                Books book = booksDao.getBookByBookID(bookID);
+                Users user = usersDao.getUserByUserID(userID);
+                OrderInfo orderInfo = orderInfoDao.getOrderInfoByOrderID(orderID);
+
+                Transactions transaction = new Transactions(transactionID, creditCard, book, transactionDate, user, orderInfo);
+                return transaction;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (results != null) {
+                results.close();
+            }
+            if (selectStmt != null) {
+                selectStmt.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
 
 }

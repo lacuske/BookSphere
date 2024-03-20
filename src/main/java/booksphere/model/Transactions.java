@@ -13,6 +13,10 @@ public class Transactions {
     public Transactions() {
     }
     
+    public Transactions(int transactionID) {
+    	this.transactionID = transactionID;
+    }
+    
     public Transactions(CreditCards creditCard, Books book, Timestamp transactionDate, Users user, OrderInfo orderInfo) {
         this.creditCard = creditCard;
         this.book = book;
@@ -21,7 +25,17 @@ public class Transactions {
         this.orderInfo = orderInfo;
     }
     
-    public int getTransactionID() {
+    public Transactions(int transactionId, CreditCards creditCard, Books book, Timestamp transactionDate,
+			Users user, OrderInfo orderInfo) {
+		this.transactionID = transactionId;
+		this.creditCard = creditCard;
+		this.book = book;
+		this.transactionDate = transactionDate;
+		this.user = user;
+		this.orderInfo = orderInfo;
+	}
+
+	public int getTransactionID() {
         return transactionID;
     }
     

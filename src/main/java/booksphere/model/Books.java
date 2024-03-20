@@ -12,6 +12,10 @@ public class Books {
     public Books() {
     }
     
+    public Books(String isbn) {
+    	this.isbn = isbn;
+    }
+    
     public Books(String isbn, String title, Author author, int bookYear, Publisher publisher, BookType bookType) {
         this.isbn = isbn;
         this.title = title;
@@ -21,7 +25,11 @@ public class Books {
         this.bookType = bookType;
     }
     
-    public enum BookType {
+    public Books(long bookId) {
+		this.bookID = bookId;
+	}
+
+	public enum BookType {
         FICTION,
         NON_FICTION,
         MYSTERY,

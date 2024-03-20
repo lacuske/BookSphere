@@ -10,11 +10,23 @@ public class Recommendations {
     public Recommendations() {
     }
     
+    public Recommendations(int recommendationID) {
+    	this.recommendationID = recommendationID;
+    }
+    
     public Recommendations(Users user, Books book, Publisher publisher, boolean recommend) {
         this.user = user;
         this.book = book;
         this.publisher = publisher;
         this.recommend = recommend;
+    }
+    
+    public Recommendations(int recommendationID, Users user, Books book, Publisher publisher, boolean recommend) {
+        this.user = user;
+        this.book = book;
+        this.publisher = publisher;
+        this.recommend = recommend;
+        this.recommendationID = recommendationID;
     }
     
     public int getRecommendationID() {

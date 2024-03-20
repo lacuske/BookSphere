@@ -12,6 +12,10 @@ public class Publisher {
         this.publisherName = publisherName;
     }
     
+    public Publisher(int publisherID) {
+        this.publisherID = publisherID;
+    }
+    
     public Publisher(String publisherName, String biography) {
         this.publisherName = publisherName;
         this.biography = biography;

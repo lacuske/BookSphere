@@ -136,6 +136,7 @@ public class UsersDao {
 			deleteStmt = connection.prepareStatement(deleteUser);
 			deleteStmt.setInt(1, user.getUserID());
 			deleteStmt.executeUpdate();
+			
 
 			// Return null so the caller can no longer operate on the Users instance.
 			return null;
@@ -151,4 +152,35 @@ public class UsersDao {
 			}
 		}
 	}
+	
+	public Users update(Users user) throws SQLException {
+        String updateUser = "UPDATE Users SET Location=?, Age=?, FirstName=?, LastName=?, Password=? WHERE UserID=?;";
+        Connection connection = null;
+        PreparedStatement updateStmt = null;
+
+        try {
+            connection = connectionManager.getConnection();
+            updateStmt = connection.prepareStatement(updateUser);
+            updateStmt.setString(1, user.getLocation());
+            updateStmt.setInt(2, user.getAge());
+            updateStmt.setString(3, user.getFirstName());
+            updateStmt.setString(4, user.getLastName());
+            updateStmt.setString(5, user.getPassword());
+            updateStmt.setInt(6, user.getUserID());
+            updateStmt.executeUpdate();
+
+            // Return the updated user
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (updateStmt != null) {
+                updateStmt.close();
+            }
+        }
+    }
 }
