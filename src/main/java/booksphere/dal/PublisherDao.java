@@ -1,55 +1,53 @@
 package booksphere.dal;
 
-import booksphere.model.Author;
+import booksphere.model.Publisher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-public class AuthorDao {
+public class PublisherDao {
     protected ConnectionManager connectionManager;
 
-    private static AuthorDao instance = null;
+    private static PublisherDao instance = null;
 
-    protected AuthorDao() {
+    protected PublisherDao() {
         connectionManager = new ConnectionManager();
     }
 
-    public static AuthorDao getInstance() {
+    public static PublisherDao getInstance() {
         if (instance == null) {
-            instance = new AuthorDao();
+            instance = new PublisherDao();
         }
         return instance;
     }
 
-    public Author create(Author author) throws SQLException {
-        String insertAuthor =
-                "INSERT INTO Author(AuthorName, Biography) " +
+    public Publisher create(Publisher publisher) throws SQLException {
+        String insertPublisher =
+                "INSERT INTO Publisher(PublisherName, Biography) " +
                         "VALUES(?, ?);";
         Connection connection = null;
         PreparedStatement insertStmt = null;
         ResultSet resultKey = null;
         try {
             connection = connectionManager.getConnection();
-            insertStmt = connection.prepareStatement(insertAuthor,
+            insertStmt = connection.prepareStatement(insertPublisher,
                     Statement.RETURN_GENERATED_KEYS);
-            insertStmt.setString(1, author.getAuthorName());
-            insertStmt.setString(2, author.getBiography());
+            insertStmt.setString(1, publisher.getPublisherName());
+            insertStmt.setString(2, publisher.getBiography());
             insertStmt.executeUpdate();
 
             resultKey = insertStmt.getGeneratedKeys();
-            int authorId = -1;
+            int publisherId = -1;
             if (resultKey.next()) {
-                authorId = resultKey.getInt(1);
+                publisherId = resultKey.getInt(1);
             } else {
                 throw new SQLException("Unable to retrieve auto-generated key.");
             }
-            author.setAuthorID(authorId);
-            return author;
+            publisher.setPublisherID(publisherId);
+            return publisher;
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
@@ -66,19 +64,19 @@ public class AuthorDao {
         }
     }
 
-    public Author update(Author author, String newBiography) throws SQLException {
-        String updateAuthor = "UPDATE Author SET Biography=? WHERE AuthorID=?;";
+    public Publisher update(Publisher publisher) throws SQLException {
+        String updatePublisher = "UPDATE Publisher SET PublisherName=?, Biography=? WHERE PublisherID=?;";
         Connection connection = null;
         PreparedStatement updateStmt = null;
         try {
             connection = connectionManager.getConnection();
-            updateStmt = connection.prepareStatement(updateAuthor);
-            updateStmt.setString(1, newBiography);
-            updateStmt.setInt(2, author.getAuthorID());
+            updateStmt = connection.prepareStatement(updatePublisher);
+            updateStmt.setString(1, publisher.getPublisherName());
+            updateStmt.setString(2, publisher.getBiography());
+            updateStmt.setInt(3, publisher.getPublisherID());
             updateStmt.executeUpdate();
 
-            author.setBiography(newBiography);
-            return author;
+            return publisher;
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
@@ -92,14 +90,14 @@ public class AuthorDao {
         }
     }
 
-    public Author delete(Author author) throws SQLException {
-        String deleteAuthor = "DELETE FROM Author WHERE AuthorID=?;";
+    public Publisher delete(Publisher publisher) throws SQLException {
+        String deletePublisher = "DELETE FROM Publisher WHERE PublisherID=?;";
         Connection connection = null;
         PreparedStatement deleteStmt = null;
         try {
             connection = connectionManager.getConnection();
-            deleteStmt = connection.prepareStatement(deleteAuthor);
-            deleteStmt.setInt(1, author.getAuthorID());
+            deleteStmt = connection.prepareStatement(deletePublisher);
+            deleteStmt.setInt(1, publisher.getPublisherID());
             deleteStmt.executeUpdate();
 
             return null;
@@ -115,94 +113,24 @@ public class AuthorDao {
             }
         }
     }
-
-    public List<Author> getAllAuthors() throws SQLException {
-        List<Author> authors = new ArrayList<>();
-        String selectAuthors =
-                "SELECT * FROM Author;";
+    
+    public Publisher getPublisherByPublisherID(int publisherID) throws SQLException {
+        String selectPublisher =
+                "SELECT * FROM Publisher WHERE PublisherID=?;";
         Connection connection = null;
         PreparedStatement selectStmt = null;
         ResultSet results = null;
         try {
             connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectAuthors);
-            results = selectStmt.executeQuery();
-            while (results.next()) {
-                int authorId = results.getInt("AuthorID");
-                String authorName = results.getString("AuthorName");
-                String biography = results.getString("Biography");
-                Author author = new Author(authorName, biography);
-                author.setAuthorID(authorId);
-                authors.add(author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-            if (selectStmt != null) {
-                selectStmt.close();
-            }
-            if (results != null) {
-                results.close();
-            }
-        }
-        return authors;
-    }
-
-    public Author getAuthorById(int authorID) throws SQLException {
-        String selectAuthor =
-                "SELECT * FROM Author WHERE AuthorID=?;";
-        Connection connection = null;
-        PreparedStatement selectStmt = null;
-        ResultSet results = null;
-        try {
-            connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectAuthor);
-            selectStmt.setInt(1, authorID);
+            selectStmt = connection.prepareStatement(selectPublisher);
+            selectStmt.setInt(1, publisherID);
             results = selectStmt.executeQuery();
             if (results.next()) {
-                String authorName = results.getString("AuthorName");
+                String publisherName = results.getString("PublisherName");
                 String biography = results.getString("Biography");
-                Author author = new Author(authorName, biography);
-                author.setAuthorID(authorID);
-                return author;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (connection != null) {
-            	connection.close();
-            } 
-            if (selectStmt != null) {
-            	selectStmt.close();
-            }
-            if (results != null) {
-            	results.close();
-            }
-        }
-        return null;
-    }
-
-    public Author getAuthorByName(String authorName) throws SQLException {
-        String selectAuthorByName = "SELECT * FROM Author WHERE AuthorName=?;";
-        Connection connection = null;
-        PreparedStatement selectStmt = null;
-        ResultSet results = null;
-        try {
-            connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectAuthorByName);
-            selectStmt.setString(1, authorName);
-            results = selectStmt.executeQuery();
-            if (results.next()) {
-                int authorID = results.getInt("AuthorID");
-                String biography = results.getString("Biography");
-                Author author = new Author(authorName, biography);
-                author.setAuthorID(authorID);
-                return author;
+                Publisher publisher = new Publisher(publisherName, biography);
+                publisher.setPublisherID(publisherID);
+                return publisher;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -220,4 +148,40 @@ public class AuthorDao {
         }
         return null;
     }
+
+    public Publisher getPublisherByPublisherName(String publisherName) throws SQLException {
+        String selectPublisher =
+                "SELECT * FROM Publisher WHERE PublisherName=?;";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectPublisher);
+            selectStmt.setString(1, publisherName);
+            results = selectStmt.executeQuery();
+            if (results.next()) {
+                int publisherID = results.getInt("PublisherID");
+                String biography = results.getString("Biography");
+                Publisher publisher = new Publisher(publisherName, biography);
+                publisher.setPublisherID(publisherID);
+                return publisher;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (selectStmt != null) {
+                selectStmt.close();
+            }
+            if (results != null) {
+                results.close();
+            }
+        }
+        return null;
+    }
+
 }

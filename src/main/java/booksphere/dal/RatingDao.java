@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RatingDao {
@@ -91,9 +90,8 @@ public class RatingDao {
 			results = selectStmt.executeQuery();
 
 			UsersDao usersDao = UsersDao.getInstance();
-			Books booksDao = BooksDao.getInstance();
+			BooksDao booksDao = BooksDao.getInstance();
 			if(results.next()) {
-				int resultRatingID = results.getInt("RatingID");
 				int rating = results.getInt("Rating");
 				int userID = results.getInt("UserID");
 				Users user = usersDao.getUserByUserID(userID);
@@ -142,7 +140,7 @@ public class RatingDao {
 			selectStmt.setInt(1, userID);
 			results = selectStmt.executeQuery();
 			UsersDao usersDao = UsersDao.getInstance();
-			BooksDao booksDao = AddressDao.getInstance();
+			BooksDao booksDao = BooksDao.getInstance();
 
 			while(results.next()) {
 				int ratingID = results.getInt("RatingID");

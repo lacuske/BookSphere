@@ -88,7 +88,7 @@ public class ReviewDao {
 			results = selectStmt.executeQuery();
 
 			UsersDao usersDao = UsersDao.getInstance();
-			Books booksDao = BooksDao.getInstance();
+			BooksDao booksDao = BooksDao.getInstance();
 			if(results.next()) {
 				int resultReviewID = results.getInt("ReviewID");
 				int userID = results.getInt("UserID");
@@ -139,7 +139,7 @@ public class ReviewDao {
 			selectStmt.setInt(1, userID);
 			results = selectStmt.executeQuery();
 			UsersDao usersDao = UsersDao.getInstance();
-			BooksDao booksDao = AddressDao.getInstance();
+			BooksDao booksDao = BooksDao.getInstance();
 
 			while(results.next()) {
 				int reviewID = results.getInt("ReviewID");
