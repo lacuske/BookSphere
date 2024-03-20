@@ -38,9 +38,9 @@ public class BooksDao {
                     Statement.RETURN_GENERATED_KEYS);
             insertStmt.setString(1, book.getIsbn());
             insertStmt.setString(2, book.getTitle());
-            insertStmt.setString(3, book.getAuthor().getAuthorName());
+            insertStmt.setInt(3, book.getAuthor().getAuthorID());
             insertStmt.setInt(4, book.getBookYear());
-            insertStmt.setString(5, book.getPublisher().getPublisherName());
+            insertStmt.setInt(5, book.getPublisher().getPublisherID());
             insertStmt.setString(6, book.getBookType().name());
             insertStmt.executeUpdate();
 
@@ -78,9 +78,9 @@ public class BooksDao {
             updateStmt = connection.prepareStatement(updateBook);
             updateStmt.setString(1, book.getIsbn());
             updateStmt.setString(2, book.getTitle());
-            updateStmt.setString(3, book.getAuthor().getAuthorName());
+            updateStmt.setInt(3, book.getAuthor().getAuthorID());
             updateStmt.setInt(4, book.getBookYear());
-            updateStmt.setString(5, book.getPublisher().getPublisherName());
+            updateStmt.setInt(5, book.getPublisher().getPublisherID());
             updateStmt.setString(6, book.getBookType().toString());
             updateStmt.setLong(7, book.getBookID());
             updateStmt.executeUpdate();
@@ -138,12 +138,12 @@ public class BooksDao {
                 String title = results.getString("Title");
                 int bookYear = results.getInt("BookYear");
                 BookType bookType = BookType.valueOf(results.getString("BookType"));
-                String authorName = results.getString("Author");
-                String pulisherName = results.getString("Publisher");
+                int authorID = results.getInt("Author");
+                int pulisherID = results.getInt("Publisher");
                 AuthorDao authorDao = AuthorDao.getInstance();
-                Author author = authorDao.getAuthorByName(authorName);
+                Author author = authorDao.getAuthorById(authorID);
                 PublisherDao publisherDao = PublisherDao.getInstance();
-                Publisher publisher = publisherDao.getPublisherByPublisherName(pulisherName);
+                Publisher publisher = publisherDao.getPublisherByPublisherID(pulisherID);
                 Books book = new Books(isbn, title, author, bookYear, publisher, bookType);
                 book.setBookID(bookID);
                 return book;
@@ -179,12 +179,12 @@ public class BooksDao {
                 String title = results.getString("Title");
                 int bookYear = results.getInt("BookYear");
                 BookType bookType = BookType.valueOf(results.getString("BookType"));
-                String authorName = results.getString("Author");
-                String publisherName = results.getString("Publisher");
+                int authorID = results.getInt("Author");
+                int publisherID = results.getInt("Publisher");
                 AuthorDao authorDao = AuthorDao.getInstance();
-                Author author = authorDao.getAuthorByName(authorName);
+                Author author = authorDao.getAuthorById(authorID);
                 PublisherDao publisherDao = PublisherDao.getInstance();
-                Publisher publisher = publisherDao.getPublisherByPublisherName(publisherName);
+                Publisher publisher = publisherDao.getPublisherByPublisherID(publisherID);
                 Books book = new Books(isbn, title, author, bookYear, publisher, bookType);
                 book.setBookID(bookID);
                 return book;
