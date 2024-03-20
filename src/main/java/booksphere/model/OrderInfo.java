@@ -15,6 +15,13 @@ public class OrderInfo {
         this.status = status;
     }
     
+    public enum OrderStatus {
+        ACTIVE,
+        FINISHED,
+        FAILED,
+        PENDING
+    }
+    
     public int getOrderID() {
         return orderID;
     }
@@ -49,9 +56,3 @@ public class OrderInfo {
     
 }
 
-enum OrderStatus {
-    ACTIVE,
-    FINISHED,
-    FAILED,
-    PENDING
-}

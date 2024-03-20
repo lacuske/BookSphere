@@ -178,17 +178,15 @@ public class RecommendationsDao {
                 long bookID = results.getLong("BookID");
                 int publisherID = results.getInt("PublisherID");
                 boolean recommend = results.getBoolean("Recommend");
-
-                // Retrieve book and publisher objects using their IDs
                 BooksDao booksDao = BooksDao.getInstance();
                 Books book = booksDao.getBookByBookID(bookID);
                 PublisherDao publisherDao = PublisherDao.getInstance();
                 Publisher publisher = publisherDao.getPublisherByPublisherID(publisherID);
-
-                // Create and add recommendation object to the list
+                UsersDao usersDao = UsersDao.getInstance();
+                Users user = usersDao.getUserByUserID(userID);
                 Recommendations recommendation = new Recommendations();
                 recommendation.setRecommendationID(recommendationID);
-                recommendation.setUser(new Users(userID)); // Assuming a constructor with only userID exists
+                recommendation.setUser(user);
                 recommendation.setBookID(book);
                 recommendation.setPublisherID(publisher);
                 recommendation.setRecommend(recommend);
@@ -210,6 +208,4 @@ public class RecommendationsDao {
         }
         return recommendationsList;
     }
-
-
 }
