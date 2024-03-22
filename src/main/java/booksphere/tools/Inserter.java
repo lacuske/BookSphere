@@ -1,4 +1,4 @@
-package booksphere.model;
+package booksphere.tools;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import booksphere.dal.*;
+import booksphere.model.*;
 import booksphere.model.Books.BookType;
 
 

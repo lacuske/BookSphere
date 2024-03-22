@@ -34,9 +34,9 @@ import java.util.Properties;
 public class ConnectionManager {
 
 	// User to connect to your database instance. By default, this is "root2".
-	private final String user = "root";
+	private String user = "root";
 	// Password for the user.
-	private final String password = "password";
+	private String password = "52137458aA**";
 	// URI to your database server. If running on the same machine, then this is "localhost".
 	private final String hostName = "localhost";
 	// Port to your database server. By default, this is 3307.
@@ -45,6 +45,14 @@ public class ConnectionManager {
 	private final String schema = "BookSphere";
 	// Default timezone for MySQL server.
 	private final String timezone = "UTC";
+	
+//	private String url = "";
+//	
+//	public ConnectionManager(String string1, String string2, String string3) {
+//		 this.url = string1;
+//		 this.user = string2;
+//		 this.password = string3;
+//	}
 
 	/** Get the connection to the database instance. */
 	public Connection getConnection() throws SQLException {
@@ -64,7 +72,7 @@ public class ConnectionManager {
 				throw new SQLException(e);
 			}
 			connection = DriverManager.getConnection(
-			    "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema + "?useSSL=false",
+			    "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema + "?useSSL=false&allowPublicKeyRetrieval=true",
 			    connectionProperties);
 		} catch (SQLException e) {
 			e.printStackTrace();
