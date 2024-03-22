@@ -46,13 +46,6 @@ public class ConnectionManager {
 	// Default timezone for MySQL server.
 	private final String timezone = "UTC";
 	
-//	private String url = "";
-//	
-//	public ConnectionManager(String string1, String string2, String string3) {
-//		 this.url = string1;
-//		 this.user = string2;
-//		 this.password = string3;
-//	}
 
 	/** Get the connection to the database instance. */
 	public Connection getConnection() throws SQLException {
